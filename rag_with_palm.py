@@ -16,14 +16,14 @@ class RAGPaLMQuery:
         self.documents = SimpleDirectoryReader("./data").load_data()
 
         # Set up API key for PaLM
-        os.environ['GOOGLE_API_KEY'] = 'AIzaSyAFAV8_yU2gbNRNAuYG2rHrwEgj3WwQFgw'
+        os.environ['GOOGLE_API_KEY'] = 'GOOGLE_API_KEY'
 
         # Initialize PaLM and Hugging Face embedding model
         self.llm = PaLM()
         self.embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en")
 
         # Set up service context
-        self.service_context = ServiceContext.from_defaults(llm=self.llm, embed_model=self.embed_model, chunk_size=800, chunk_overlap=20)
+        self.service_context = ServiceContext.from_defaults(llm=self.llm, embed_model=self.embed_model, chunk_size=1000, chunk_overlap=20)
 
         # Create a VectorStoreIndex from the documents
         self.index = VectorStoreIndex.from_documents(self.documents, service_context=self.service_context)
